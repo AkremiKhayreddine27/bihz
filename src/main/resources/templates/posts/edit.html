@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/layout">
+
+<main layout:fragment="page">
+    <div class="col-sm-9" id="editPost">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <div class="panel-title"> Ajouter des documents</div>
+            </div>
+            <div class="panel-body">
+                <form class="post-form" v-on:submit.prevent="update" enctype="multipart/form-data">
+                    <div class="form-group" v-bind:class="{'has-error': form.errors.get('title')}">
+                        <label for="title" class="control-label">title</label>
+                        <div>
+                            <input id="title" v-model="form.model.title" type="text" class="form-control" />
+                            <span class="help-block"><strong v-text="form.errors.get('title')"></strong> </span>
+                        </div>
+                    </div>
+                    <div class="form-group" v-bind:class="{'has-error': form.errors.get('description')}">
+                        <label for="description" class="control-label">description</label>
+                        <div>
+                            <textarea v-model="form.model.description" id="description" class="form-control"></textarea>
+                            <span class="help-block"><strong v-text="form.errors.get('title')"></strong> </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div id="dzone" class="dropzone">
+                            <div class="dropzone-previews"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary">Enregistrer</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <aside class="col-md-3" th:replace="posts/fragments/sidebar :: sidebar">
+
+    </aside>
+</main>
+<th:block layout:fragment="script">
+    <script type='text/javascript' th:src="@{/js/editPost.js}"></script>
+    <script type='text/javascript' th:src="@{/js/sidebar.js}"></script>
+</th:block>
+</html>

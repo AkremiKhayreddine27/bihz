@@ -1,0 +1,110 @@
+.posts_header {
+  padding: 15px;
+}
+
+.post {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  padding: 15px 15px;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #dddddd;
+  background-color: white;
+  &_content {
+    flex: 1;
+    padding: 0 15px 15px 15px;
+  }
+  &_media {
+    flex-basis: 25%;
+    img {
+      width: 100%;
+    }
+  }
+  &_title {
+    color: $black-color;
+    flex-basis: 100%;
+    font-size: 1.4em;
+    display: flex;
+    &_link {
+      flex: 1;
+      color: $black-color;
+    }
+    .btn {
+      margin-left: 10px;
+    }
+  }
+  &_information {
+    display: flex;
+    &_user {
+      color: $primary-color;
+      margin-right: 5px;
+    }
+  }
+  &_actions {
+    flex-basis: 100%;
+    display: flex;
+    justify-content: flex-end;
+  }
+  &_description {
+    color: #8B8B8B;
+    flex-basis: 100%;
+    padding: 15px;
+  }
+  &_files {
+    display: flex;
+    flex-wrap: wrap;
+    li {
+      margin: 5px;
+      background-color: $body-bg;
+      padding: 10px 30px;
+      display: flex;
+      align-items: center;
+      a {
+        flex: 1;
+        margin-right: 15px;
+        color: $black-color;
+      }
+      .actions {
+
+      }
+    }
+  }
+  &_edit {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 100%;
+  }
+}
+.panel-sidebar{
+  border: none !important;
+  .panel-heading{
+    background-color: $primary-color;
+    color: white !important;
+  }
+}
+.sidebar_post {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px 0;
+  border-bottom: 1px solid #dddddd;
+  .post_media {
+    margin-right: 5px;
+    img {
+      width: 70px;
+      height: 70px;
+    }
+  }
+  .post_title {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 1em;
+    .post_title_link {
+      flex-basis: 100%;
+      font-size: 1em;
+    }
+    .post_information {
+      color: #8B8B8B;
+    }
+  }
+}

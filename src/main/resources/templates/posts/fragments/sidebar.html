@@ -1,0 +1,25 @@
+<aside th:fragment="sidebar">
+    <div class="col-sm-3 blog-sidebar" id="sidebar">
+        <div class="sidebar-module sidebar-module-inset">
+            <div class="panel panel-sidebar">
+                <div class="panel-heading">
+                    <div class="panel-title">Les derniers</div>
+                </div>
+                <div v-for="latest in latests" class="sidebar_post">
+                    <div class="post_media">
+                        <img src="/images/post.jpg"/>
+                    </div>
+                    <div class="post_title">
+                        <div class="post_title_link">
+                            <a class="post_title_link" :href="'/posts/'+latest.id">{{ latest.title }}</a>
+                        </div>
+                        <ul class="post_information">
+                            <li class="post_information_user"> {{ latest.user.name }} |</li>
+                            <li class="post_information_date">{{ latest.updated_at }}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</aside>

@@ -1,0 +1,20 @@
+{
+  "/src/main/resources/static/js/app.js": "/src/main/resources/static/js/app.js",
+  "/src/main/resources/static/css/app.css": "/src/main/resources/static/css/app.css",
+  "/src/main/resources/static/js/main.js": "/src/main/resources/static/js/main.js",
+  "/src/main/resources/static/js/users.js": "/src/main/resources/static/js/users.js",
+  "/src/main/resources/static/js/storePost.js": "/src/main/resources/static/js/storePost.js",
+  "/src/main/resources/static/js/statisticsdb.js": "/src/main/resources/static/js/statisticsdb.js",
+  "/src/main/resources/static/js/qualificatifsdb.js": "/src/main/resources/static/js/qualificatifsdb.js",
+  "/src/main/resources/static/js/layers.js": "/src/main/resources/static/js/layers.js",
+  "/src/main/resources/static/js/geoserver.js": "/src/main/resources/static/js/geoserver.js",
+  "/src/main/resources/static/js/editPost.js": "/src/main/resources/static/js/editPost.js",
+  "/src/main/resources/static/js/contact.js": "/src/main/resources/static/js/contact.js",
+  "/src/main/resources/static/js/statistics.js": "/src/main/resources/static/js/statistics.js",
+  "/src/main/resources/static/js/sidebar.js": "/src/main/resources/static/js/sidebar.js",
+  "/src/main/resources/static/js/showPost.js": "/src/main/resources/static/js/showPost.js",
+  "/src/main/resources/static/js/qualitatifs.js": "/src/main/resources/static/js/qualitatifs.js",
+  "/src/main/resources/static/js/posts.js": "/src/main/resources/static/js/posts.js",
+  "/src/main/resources/static/js/messages.js": "/src/main/resources/static/js/messages.js",
+  "src/main/resources/static/css/all.css": "src/main/resources/static/css/all.css"
+}

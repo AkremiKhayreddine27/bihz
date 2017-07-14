@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/layout">
+<head>
+    <script th:src="@{/js/jssor.slider-23.1.0.mini.js}" type="text/javascript"></script>
+</head>
+<main layout:fragment="page">
+    <main>
+        <div id="jssor_1"
+             style="position:relative;margin:0 auto;top:0px;left:0px;width:1300px;height:500px;overflow:hidden;visibility:hidden;">
+            <!-- Loading Screen -->
+            <div data-u="loading" style="position:absolute;top:0px;left:0px;background-color:rgba(0,0,0,0.7);">
+                <div style="filter: alpha(opacity=70); opacity: 0.7; position: absolute; display: block; top: 0px; left: 0px; width: 100%; height: 100%;"></div>
+                <div style="position:absolute;display:block;background:url('images/home1.jpg') no-repeat center center;top:0px;left:0px;width:100%;height:100%;"></div>
+            </div>
+            <div data-u="slides"
+                 style="cursor:default;position:relative;top:0px;left:0px;width:1300px;height:500px;overflow:hidden;">
+                <div>
+                    <img data-u="image" th:src="@{/images/photo.jpg}"/>
+                </div>
+                <div>
+                    <img data-u="image" th:src="@{/images/photo.jpg}"/>
+                </div>
+            </div>
+            <!-- Arrow Navigator -->
+            <span data-u="arrowleft" class="jssora22l" style="top:0px;left:8px;width:40px;height:58px;"
+                  data-autocenter="2"></span>
+            <span data-u="arrowright" class="jssora22r" style="top:0px;right:8px;width:40px;height:58px;"
+                  data-autocenter="2"></span>
+        </div>
+        <div class="app-disc primary-bg container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="utility-center-text">qu'est ce que une BIHZ?</h3>
+                    <p class="utility-center-text">
+                        c'est une banque de documents et de données, qui permet aux acteurs de l'eau ainsi que le grand
+                        public d'évaluer la qualité des eaux, l'état actuel des nappes profondes et phréatique du
+                        gouvernorat du gouvernorat de zaghouan ainsi que leur historique de bulletin de situation
+                        piézométriques dans le but d'effectuer leurs suivi régulier à l'échelle spatiale et temporelle
+                        permettant d'étudier le fonctionnement des nappes et identifier celles en surexploitation.
+                        BIHZ Zaghouan permet d'être à jour avec les nappes de zaghouan d'une maniere dynamique avec une
+                        dimension spatiale
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="app-disc-group container-fluid">
+            <div class="row">
+                <div class="col-md-6 responsive-img">
+                    <img src="/images/responsive.png"/>
+                </div>
+                <div class="col-md-3 app-disc ">
+                    <i class="fa fa-refresh"></i>
+                    <h6 class="utility-center-text">MISE A JOUR</h6>
+                    <p class="">
+                    </p>
+                </div>
+                <div class="col-md-3 app-disc ">
+                    <i class="fa fa-map-marker"></i>
+                    <h6 class="utility-center-text">GESTION DE CARTE</h6>
+                    <p class="">
+                    </p>
+                </div>
+                <div class="col-md-3 app-disc ">
+                    <i class="fa fa-users"></i>
+                    <h6 class="utility-center-text">GESTION DES UTILISATEURS</h6>
+                    <p class="">
+                    </p>
+                </div>
+                <div class="col-md-3 app-disc ">
+                    <i class="fa fa-charts"></i>
+                    <h6 class="utility-center-text">STATISTIQUES</h6>
+                    <p class="">
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </main>
+</main>
+<th:block layout:fragment="script">
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+
+            var jssor_1_SlideoTransitions = [
+                [{b: 900, d: 2000, x: -379, e: {x: 7}}],
+                [{b: 900, d: 2000, x: -379, e: {x: 7}}],
+                [{b: -1, d: 1, o: -1, sX: 2, sY: 2}, {b: 0, d: 900, x: -171, y: -341, o: 1, sX: -2, sY: -2}, {
+                    b: 900,
+                    d: 1600,
+                    x: -283,
+                    o: -1,
+                    e: {x: 16}
+                }]
+            ];
+
+            var jssor_1_options = {
+                $AutoPlay: 1,
+                $SlideDuration: 800,
+                $SlideEasing: $Jease$.$OutQuint,
+                $CaptionSliderOptions: {
+                    $Class: $JssorCaptionSlideo$,
+                    $Transitions: jssor_1_SlideoTransitions
+                },
+                $ArrowNavigatorOptions: {
+                    $Class: $JssorArrowNavigator$
+                },
+                $BulletNavigatorOptions: {
+                    $Class: $JssorBulletNavigator$
+                }
+            };
+
+            var jssor_1_slider = new $JssorSlider$("jssor_1", jssor_1_options);
+
+            /*responsive code begin*/
+            /*remove responsive code if you don't want the slider scales while window resizing*/
+            function ScaleSlider() {
+                var refSize = jssor_1_slider.$Elmt.parentNode.clientWidth;
+                if (refSize) {
+                    refSize = Math.min(refSize, 1920);
+                    jssor_1_slider.$ScaleWidth(refSize);
+                }
+                else {
+                    window.setTimeout(ScaleSlider, 30);
+                }
+            }
+
+            ScaleSlider();
+            $(window).bind("load", ScaleSlider);
+            $(window).bind("resize", ScaleSlider);
+            $(window).bind("orientationchange", ScaleSlider);
+            /*responsive code end*/
+        });
+    </script>
+</th:block>
+</html>

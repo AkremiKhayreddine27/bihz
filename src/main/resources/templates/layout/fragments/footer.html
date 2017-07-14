@@ -1,0 +1,45 @@
+<div th:fragment="footer">
+    <!-- _________________________ Start Bottom _________________________ -->
+    <div id="bottom">
+        <div class="container">
+            <div class="row">
+                <aside class="col-md-4">
+                    <div class="logo">
+                        <img th:src="@{/images/logo-light.png}" alt=""/>
+                        <p>
+
+                        </p>
+                    </div>
+                </aside>
+                <aside id="text-3" class="col-md-4">
+                    <h3>Plan de site</h3>
+                    <div class="textwidget">
+                        <ul>
+                            <li><a th:href="@{/accueil}">Accueil</a></li>
+
+                            <li><a th:href="@{/posts}">Documents</a></li>
+
+                            <li><a th:href="@{/map}">Carthographie</a></li>
+                        </ul>
+                    </div>
+                </aside>
+                <aside class="col-md-4">
+                    <h3>Contacts</h3>
+                    <span>
+                    <a class="email" href="mailto:admin@ihz.com">contact@ihz.com</a>
+                </span><br/>
+                    <span>
+                    <span class="tel">Appelez-nous: 11-800-123</span>
+                </span>
+                </aside>
+            </div>
+        </div>
+    </div>
+    <!-- _________________________ Finish Bottom _________________________ -->
+    <footer id="footer">
+        <div class="footer_border">
+            <div class="footer_inner">
+                <span class="footer_copyright copyright"> 2016 FST -- ...</span></div>
+        </div>
+    </footer>
+</div>

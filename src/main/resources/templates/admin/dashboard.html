@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/layout">
+<main layout:fragment="page">
+    <div class="container">
+        <div class="row">
+            <div th:replace="admin/fragments/users :: users"></div>
+            <div th:replace="admin/fragments/geoserver :: geoserver"></div>
+        </div>
+        <div class="row">
+            <div th:replace="admin/fragments/layers :: layers"></div>
+        </div>
+        <div class="row" id="statisticsdb">
+            <div class="col-sm-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <div class="panel-title"> Suivi qualitatif des nappes
+                            <button type="button" class="btn btn-default pull-right btn-sm"
+                                    data-toggle="modal"
+                                    data-target="#statistic"><i class="fa fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <td>nom de la nappe</td>
+                            <td>date</td>
+                            <td>indicateur</td>
+                            <td>valeur</td>
+                            <td>actions</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-for="statistic in statistics">
+                            <td v-text="statistic.nappe"></td>
+                            <td v-text="statistic.date"></td>
+                            <td v-text="statistic.type"></td>
+                            <td v-text="statistic.valeur"></td>
+                            <td>
+                                <button v-on:click="deleteStatistic(statistic.id)" class="btn btn-danger"><i
+                                        class="fa fa-trash"></i>Supprimer</button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div id="statistic" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <form>
+                                <div class="form-group"
+                                     v-bind:class="{'has-error': statisticsform.errors.get('nappe')}">
+                                    <label for="nappe" class="control-label">nappe</label>
+                                    <div>
+                                        <input id="nappe" v-model="statisticsform.model.nappe" type="text"
+                                               class="form-control"/>
+                                        <span v-if="statisticsform.errors.has('nappe')" class="help-block"><strong
+                                                v-text="statisticsform.errors.get('nappe')"></strong> </span>
+                                    </div>
+                                </div>
+                                <div class="form-group" v-bind:class="{'has-error': statisticsform.errors.get('date')}">
+                                    <label for="date" class="control-label">date</label>
+                                    <div>
+                                        <input id="date" v-model="statisticsform.model.date" type="text"
+                                               class="form-control"/>
+                                        <span v-if="statisticsform.errors.has('date')" class="help-block"><strong
+                                                v-text="statisticsform.errors.get('date')"></strong> </span>
+                                    </div>
+                                </div>
+                                <div class="form-group" v-bind:class="{'has-error': statisticsform.errors.get('type')}">
+                                    <label for="type" class="control-label">type</label>
+                                    <div>
+                                        <input id="type" v-model="statisticsform.model.type" type="text"
+                                               class="form-control"/>
+                                        <span v-if="statisticsform.errors.has('type')" class="help-block"><strong
+                                                v-text="statisticsform.errors.get('type')"></strong> </span>
+                                    </div>
+                                </div>
+                                <div class="form-group"
+                                     v-bind:class="{'has-error': statisticsform.errors.get('valeur')}">
+                                    <label for="valeur" class="control-label">valeur</label>
+                                    <div>
+                                        <input id="valeur" v-model="statisticsform.model.valeur" type="text"
+                                               class="form-control"/>
+                                        <span v-if="statisticsform.errors.has('valeur')" class="help-block"><strong
+                                                v-text="statisticsform.errors.get('valeur')"></strong> </span>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button id="closeUserModal" type="button" class="btn btn-default"
+                                    data-dismiss="modal">
+                                Annuler
+                            </button>
+                            <button class="btn btn-primary"
+                                    v-on:click="saveNewStatistic">Ajouter
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="row" id="qualitatifsdb">
+            <div class="col-sm-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <div class="panel-title"> Suivi quantitaif des nappes
+                            <button type="button" class="btn btn-default pull-right btn-sm"
+                                    data-toggle="modal"
+                                    data-target="#qualitatif"><i class="fa fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <td>nom de la nappe</td>
+                            <td>date</td>
+                            <td>indicateur</td>
+                            <td>valeur</td>
+                            <td>actions</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-for="qualitatif in qualitatifs">
+                            <td v-text="qualitatif.nappe"></td>
+                            <td v-text="qualitatif.date"></td>
+                            <td v-text="qualitatif.type"></td>
+                            <td v-text="qualitatif.valeur"></td>
+                            <td>
+                                <button v-on:click="deleteQualitatif(qualitatif.id)" class="btn btn-danger"><i
+                                        class="fa fa-trash"></i>Supprimer</button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div id="qualitatif" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <form>
+                                <div class="form-group"
+                                     v-bind:class="{'has-error': qualitatifsform.errors.get('nappe')}">
+                                    <label for="nappe" class="control-label">nappe</label>
+                                    <div>
+                                        <input id="nappe" v-model="qualitatifsform.model.nappe" type="text"
+                                               class="form-control"/>
+                                        <span v-if="qualitatifsform.errors.has('nappe')" class="help-block"><strong
+                                                v-text="qualitatifsform.errors.get('nappe')"></strong> </span>
+                                    </div>
+                                </div>
+                                <div class="form-group"
+                                     v-bind:class="{'has-error': qualitatifsform.errors.get('date')}">
+                                    <label for="date" class="control-label">date</label>
+                                    <div>
+                                        <input id="date" v-model="qualitatifsform.model.date" type="text"
+                                               class="form-control"/>
+                                        <span v-if="qualitatifsform.errors.has('date')" class="help-block"><strong
+                                                v-text="qualitatifsform.errors.get('date')"></strong> </span>
+                                    </div>
+                                </div>
+                                <div class="form-group"
+                                     v-bind:class="{'has-error': qualitatifsform.errors.get('type')}">
+                                    <label for="type" class="control-label">type</label>
+                                    <div>
+                                        <input id="type" v-model="qualitatifsform.model.type" type="text"
+                                               class="form-control"/>
+                                        <span v-if="qualitatifsform.errors.has('type')" class="help-block"><strong
+                                                v-text="qualitatifsform.errors.get('type')"></strong> </span>
+                                    </div>
+                                </div>
+                                <div class="form-group"
+                                     v-bind:class="{'has-error': qualitatifsform.errors.get('valeur')}">
+                                    <label for="valeur" class="control-label">valeur</label>
+                                    <div>
+                                        <input id="valeur" v-model="qualitatifsform.model.valeur" type="text"
+                                               class="form-control"/>
+                                        <span v-if="qualitatifsform.errors.has('valeur')" class="help-block"><strong
+                                                v-text="qualitatifsform.errors.get('valeur')"></strong> </span>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button id="closeUserModal" type="button" class="btn btn-default"
+                                    data-dismiss="modal">
+                                Annuler
+                            </button>
+                            <button class="btn btn-primary"
+                                    v-on:click="saveNewQualitatif">Ajouter
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<th:block layout:fragment="script">
+    <script type='text/javascript' th:src="@{/js/users.js}"></script>
+    <script type='text/javascript' th:src="@{/js/statisticsdb.js}"></script>
+    <script type='text/javascript' th:src="@{/js/qualificatifsdb.js}"></script>
+    <script type='text/javascript' th:src="@{/js/layers.js}"></script>
+    <script type='text/javascript' th:src="@{/js/geoserver.js}"></script>
+</th:block>
+</html>

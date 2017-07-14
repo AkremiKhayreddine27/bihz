@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/layout">
+<main class="container" layout:fragment="page">
+    <div class="row">
+        <div id="contact" class="panel panel-default">
+            <div class="panel-heading">Contact</div>
+            <div class="panel-body">
+                <form class="form-horizontal" v-on:submit.prevent="sendMessage" method="post">
+                    <div class="form-group" v-bind:class="{'has-error': form.errors.get('from_name')}">
+                        <label for="from_name" class="control-label col-md-4 ">Votre nom</label>
+                        <div class="col-md-6">
+                            <input id="from_name" v-model="form.model.from_name" type="text" class="form-control"/>
+                            <span class="help-block"><strong v-text="form.errors.get('from_name')"></strong> </span>
+                        </div>
+                    </div>
+                    <div class="form-group" v-bind:class="{'has-error': form.errors.get('from_email')}">
+                        <label for="from_email" class="control-label col-md-4 ">Address e-mail</label>
+                        <div class="col-md-6">
+                            <input id="from_email" v-model="form.model.from_email" type="text" class="form-control"/>
+                            <span class="help-block"><strong v-text="form.errors.get('from_email')"></strong> </span>
+                        </div>
+                    </div>
+                    <div class="form-group" v-bind:class="{'has-error': form.errors.get('phone')}">
+                        <label for="phone" class="control-label col-md-4 ">Numéro du téléphone</label>
+                        <div class="col-md-6">
+                            <input id="phone" v-model="form.model.phone" type="text" class="form-control"/>
+                            <span class="help-block"><strong v-text="form.errors.get('phone')"></strong> </span>
+                        </div>
+                    </div>
+                    <div class="form-group" v-bind:class="{'has-error': form.errors.get('content')}">
+                        <label for="content" class="control-label col-md-4 ">Message</label>
+                        <div class="col-md-6">
+                            <textarea rows="6" v-model="form.model.content" id="content"
+                                      class="form-control"></textarea>
+                            <span class="help-block"><strong v-text="form.errors.get('content')"></strong> </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-4 col-md-offset-10">
+                            <button type="submit" class="btn btn-primary">
+                                Envoyer
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+<th:block layout:fragment="script">
+    <script type='text/javascript' th:src="@{/js/contact.js}"></script>
+</th:block>
+</html>

@@ -1,0 +1,90 @@
+<header th:fragment="navbar">
+    <nav class="navbar navbar-default navbar-static-top">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#"><img th:src="@{/images/logo-light.png}"/></a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <form id="documentsSearch" class="navbar-form navbar-right">
+                <div class="form-group">
+                    <div class="dropdown">
+                        <div class="input-group">
+                            <input v-on:keyup="search" v-model="searchFor" type="text" class="form-control"
+                                   placeholder="
+                    Chercher un document..."/>
+                            <span class="input-group-btn">
+        <button class="btn" type="button"><i class="fa fa-search"></i> </button>
+      </span>
+                        </div>
+                        <a href="#" class="dropdown-toggle hidden" data-toggle="dropdown" role="button"
+                           aria-haspopup="true"
+                           aria-expanded="false" id="mybutton"><span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li v-for="result in results"><a :href="'/posts/'+result.id">{{ result.title }}</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </nav>
+    <nav class="navbar navbar-default navbar-bottom navbar-bottom-light">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                        aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a th:href="@{/}"><i class="fa fa-home"></i> Accueil</a></li>
+                    <li><a th:href="@{/map}"><i class="fa fa-map"></i> Cartographie</a></li>
+                    <li><a th:href="@{/posts}"><i class="fa fa-edit"></i> Documents</a></li>
+                    <li class="dropdown dropdown-hover">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false"><i class="fa fa-bar-chart"></i>Suivi des indicateurs</a>
+                        <ul class="dropdown-menu">
+                            <li><a th:href="@{/statistics}">Suivi qualitatif des nappes</a>
+                            </li>
+                            <li><a th:href="@{/qualitatifs}">Suivi quantitatif des nappes</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><a th:href="@{/contact}"><i class="fa fa-envelope"></i> Contacts</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li sec:authorize="isAnonymous()"><a th:href="@{/login}"><i class="fa fa-sign-in"></i> Se connecter</a>
+                    </li>
+                    <li sec:authorize="isAnonymous()"><a th:href="@{/register}"><i class="fa fa-sign-in"></i> S'inscrire</a>
+                    </li>
+                    <li sec:authorize="isAuthenticated()" class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false">
+                            <i sec:authorize="hasAuthority('Administrateur')" class="fa fa-user-secret"></i>
+                            <i sec:authorize="hasAuthority('Collaborateur')" class="fa fa-user"></i>
+                            <span sec:authentication="name"></span>
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li sec:authorize="hasAuthority('Administrateur')"><a th:href="@{/admin/dashboard}">
+                                <i class="fa fa-dashboard"></i>
+                                tableau
+                                de bord</a></li>
+                            <li><a href="#"
+                                   onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                <i class="fa fa-sign-out"></i> Déconnecter
+                            </a>
+                                <form id="logout-form" th:action="@{/logout}" method="POST"
+                                      style="display: none;">
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+
+            </div><!--/.nav-collapse -->
+        </div>
+    </nav>
+</header>

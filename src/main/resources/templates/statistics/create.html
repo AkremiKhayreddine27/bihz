@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/layout">
+
+<main layout:fragment="page">
+    <div class="col-sm-12" id="statisticsdb">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <div class="panel-title"> Gestion des données</div>
+            </div>
+            <div class="panel-body">
+                <button class="btn btn-primary" v-on:click="addNewStatistic = true">Ajouter</button>
+            </div>
+            <table class="table">
+                <thead>
+                <tr>
+                    <td>nom de la nappe</td>
+                    <td>date</td>
+                    <td>indicateur</td>
+                    <td>valeur</td>
+                    <td>actions</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-if="addNewStatistic">
+                    <td>
+                        <input v-model="form.model.nappe" type="text" class="form-control" />
+                        <span class="help-block"><strong v-text="form.errors.get('nappe')"></strong> </span>
+                    </td>
+                    <td>
+                        <input v-model="form.model.date" type="text" class="form-control" />
+                        <span class="help-block"><strong v-text="form.errors.get('date')"></strong> </span>
+                    </td>
+                    <td>
+                        <input v-model="form.model.type" type="text" class="form-control" />
+                        <span class="help-block"><strong v-text="form.errors.get('type')"></strong> </span>
+                    </td>
+                    <td>
+                        <input v-model="form.model.valeur" type="text" class="form-control" />
+                        <span class="help-block"><strong v-text="form.errors.get('valeur')"></strong> </span>
+                    </td>
+                    <td>
+                        <button class="btn btn-success" v-on:click="saveNewStatistic"><i class="fa fa-save"></i></button>
+                    </td>
+                </tr>
+                <tr v-for="statistic in statistics">
+                    <td v-text="statistic.nappe"></td>
+                    <td v-text="statistic.date"></td>
+                    <td v-text="statistic.type"></td>
+                    <td v-text="statistic.valeur"></td>
+                    <td>
+                        <button v-on:click="deleteStatistic(statistic.id)" class="btn btn-danger"><i
+                                class="fa fa-trash"></i></button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+<th:block layout:fragment="script">
+    <script type='text/javascript' th:src="@{/js/statisticsdb.js}"></script>
+</th:block>
+</html>

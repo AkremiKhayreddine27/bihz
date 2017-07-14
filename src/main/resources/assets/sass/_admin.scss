@@ -1,0 +1,34 @@
+.widget {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid #dddddd;
+  height: 100px;
+}
+
+.admin-widget {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  color: $black-color;
+
+  i {
+    font-size: 2em;
+  }
+}
+
+.bg-blue {
+  background-color: $primary-color;
+}
+
+.bg-red {
+  background-color: $red;
+}
+
+.bg-green {
+  background-color: $green;
+}
+
+.bg-black {
+  background-color: $black-color;
+}

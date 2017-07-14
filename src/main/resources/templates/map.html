@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/layout">
+<head>
+    <link rel="stylesheet" href="https://openlayers.org/en/v4.1.0/css/ol.css" type="text/css"/>
+</head>
+<main layout:fragment="page">
+    <div id="carte">
+        <div id="map" class="map fill">
+        </div>
+        <div id="legende" class="legend">
+            <h2>Légende</h2>
+        </div>
+        <div id="infosPopup" class="infosPopup">
+            <div id="head">
+                <i id="closePopup" class="fa fa-close"></i>
+            </div>
+            <div id="infosPopupCont" style="overflow: auto">
+
+            </div>
+        </div>
+        <div class="map-params">
+            <div class="map-params_after">
+
+            </div>
+            <div class="map-config">
+                <div class="track-tittle">Position</div>
+                <div class="slideThree">
+                    <input id="track" type="checkbox" v-model="positionCheckbox"/>
+                    <label for="track"></label>
+                </div>
+                <button id="btnSelect" data-toggle="tooltip" title="Informations" class="btn btn-default">
+                    <i class="fa fa-hand-pointer-o"></i>
+                </button>
+                <button id="btnEdit" data-toggle="tooltip" title="Modifier" class="btn btn-default">
+                    <i class="fa fa-edit"></i>
+                </button>
+                <button id="btnDelete" data-toggle="tooltip" title="Supprimer" class="btn btn-default">
+                    <i class="fa fa-trash"></i>
+                </button>
+                <button id="btnArea" data-toggle="tooltip" title="Multipolygon" class="btn btn-default">
+                    <i class="fa fa-pencil"></i>
+                </button>
+                <button id="btnPoint" data-toggle="tooltip" title="Point" class="btn btn-default">
+                    <i class="fa fa-circle"></i>
+                </button>
+                <button id="btnLine" data-toggle="tooltip" title="Ligne" class="btn btn-default">
+                    <i class="fa fa-window-minimize"></i>
+                </button>
+                <button id="btnMesure" data-toggle="tooltip" title="outil de mesure" class="btn btn-default">
+                    <i class="fa fa-magic"></i>
+                </button>
+            </div>
+        </div>
+        <div style="width: 100%" id="wrapper">
+            <div style="display:none" id="location"></div>
+            <div style="display:none" id="scale"></div>
+            <div id="mailContent" style="width:100%;display:none"></div>
+        </div>
+        <!-- Trigger the modal with a button -->
+        <button id="sendMailNewData" type="button" class="btn btn-info btn-lg hidden" data-toggle="modal"
+                data-target="#myModal">Open Modal
+        </button>
+
+        <!-- Modal -->
+        <div id="myModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Les détails</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div id="formBuilder">
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="closeModal" type="button" class="btn btn-default" data-dismiss="modal">Fermer
+                        </button>
+                        <button class="btn btn-primary" id="saveFeature">Ajouter</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</main>
+<th:block layout:fragment="script">
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/proj4js/2.3.3/proj4.js"></script>
+    <script type='text/javascript' th:src="@{/js/iframeResizer.contentWindow.min.js}"></script>
+    <script type='text/javascript' th:src="@{/js/iframeResizer.min.js}"></script>
+    <script type='text/javascript' th:src="@{/js/jquery.storageapi.min.js}"></script>
+    <script src="https://openlayers.org/en/v4.1.0/build/ol.js"></script>
+    <script type='text/javascript' th:src="@{/js/main.js}"></script>
+</th:block>
+</html>

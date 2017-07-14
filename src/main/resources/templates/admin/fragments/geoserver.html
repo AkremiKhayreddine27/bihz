@@ -1,0 +1,69 @@
+<div th:fragment="geoserver" class="col-md-5" id="geoserver">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <div class="panel-title"><a href="">Geoserver</a></div>
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal" v-on:submit.prevent="configure" v-on:keydown="
+                        form.errors.clear($event.target.name)">
+                <div class="form-group"
+                     v-bind:class="{'has-error': form.errors.get('url')}">
+                    <label for="url" class="control-label col-md-4">URl</label>
+                    <div class="col-md-8">
+                        <input id="url" v-model="form.model.url" type="text"
+                               class="form-control"/>
+                        <span class="help-block"><strong
+                                v-text="form.errors.get('url')"></strong> </span>
+                    </div>
+                </div>
+                <div class="form-group"
+                     v-bind:class="{'has-error': form.errors.get('workspace')}">
+                    <label for="workspace" class="control-label col-md-4">Espace de travail</label>
+                    <div class="col-md-8">
+                        <input id="workspace" v-model="form.model.workspace" type="text"
+                               class="form-control"/>
+                        <span class="help-block"><strong
+                                v-text="form.errors.get('workspace')"></strong> </span>
+                    </div>
+                </div>
+                <div class="form-group"
+                     v-bind:class="{'has-error': form.errors.get('feature_ns')}">
+                    <label for="feature_ns" class="control-label col-md-4">URI de l'espace de nommage</label>
+                    <div class="col-md-8">
+                        <input id="feature_ns" v-model="form.model.feature_ns" type="text"
+                               class="form-control"/>
+                        <span class="help-block"><strong
+                                v-text="form.errors.get('feature_ns')"></strong> </span>
+                    </div>
+                </div>
+                <div class="form-group"
+                     v-bind:class="{'has-error': form.errors.get('src_name')}">
+                    <label for="src_name" class="control-label col-md-4">Systèmes de Référence de Coordonnées</label>
+                    <div class="col-md-8">
+                        <input id="src_name" v-model="form.model.src_name" type="text"
+                               class="form-control"/>
+                        <span class="help-block"><strong
+                                v-text="form.errors.get('src_name')"></strong> </span>
+                    </div>
+                </div>
+                <div class="form-group"
+                     v-bind:class="{'has-error': form.errors.get('layers_primary_key')}">
+                    <label for="layers_primary_key" class="control-label col-md-4">Clé primaire des Tables</label>
+                    <div class="col-md-8">
+                        <input id="layers_primary_key" v-model="form.model.layers_primary_key" type="text"
+                               class="form-control"/>
+                        <span class="help-block"><strong
+                                v-text="form.errors.get('layers_primary_key')"></strong> </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-6 col-md-offset-4">
+                        <button type="submit" class="btn btn-primary">
+                            Enregistrer
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
