@@ -42,9 +42,6 @@ import java.util.Set;
 public class LoginController {
 
     @Autowired
-    private UserDetailsServiceImpl service;
-
-    @Autowired
     private AuthenticationManager authenticationManager;
 
     @Autowired

@@ -21,12 +21,6 @@ public class UsersController {
     @Autowired
     private UserService userService;
 
-
-    @Autowired
-    private UserRepository userRepository;
-
-
-
     private final StorageService storageService;
 
     @Autowired
