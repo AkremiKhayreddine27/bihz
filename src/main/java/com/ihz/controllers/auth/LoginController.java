@@ -1,7 +1,10 @@
 package com.ihz.controllers.auth;
 
 import com.ihz.forms.Register;
+import com.ihz.models.Role;
 import com.ihz.models.User;
+import com.ihz.repositories.RoleRepository;
+import com.ihz.repositories.UserRepository;
 import com.ihz.services.SecurityService;
 import com.ihz.services.UserDetailsServiceImpl;
 import com.ihz.validation.EmailExistsException;
@@ -16,8 +19,10 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
@@ -30,6 +35,8 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.HashSet;
+import java.util.Set;
 
 @Controller
 public class LoginController {
@@ -42,6 +49,15 @@ public class LoginController {
 
     @Autowired
     private UserDetailsService userDetailsService;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Autowired
+    private RoleRepository roleRepository;
 
 
     @Autowired
@@ -71,7 +87,7 @@ public class LoginController {
             return new ModelAndView("register", "user", accountDto);
         }
         try {
-            final User registered = service.registerNewUserAccount(accountDto);
+            final User registered = registerNewUserAccount(accountDto);
             UserDetails userDetails = userDetailsService.loadUserByUsername(accountDto.getEmail());
             UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, accountDto.getPassword(), userDetails.getAuthorities());
             authenticationManager.authenticate(usernamePasswordAuthenticationToken);
@@ -101,6 +117,33 @@ public class LoginController {
             return resolver.isAnonymous(auth);
         }
         return true;
+    }
+
+    @Transactional
+    public User registerNewUserAccount(Register accountDto)
+            throws EmailExistsException {
+
+        if (emailExist(accountDto.getEmail())) {
+            throw new EmailExistsException(
+                    "There is an account with that email adress: "
+                            + accountDto.getEmail());
+        }
+        User user = new User();
+        user.setName(accountDto.getName());
+        user.setPassword(bCryptPasswordEncoder.encode(accountDto.getPassword()));
+        user.setEmail(accountDto.getEmail());
+        Set<Role> roles = new HashSet<Role>();
+        roles.add(roleRepository.findOne((long) 2));
+        user.setRoles(new HashSet<Role>(roles));
+        return userRepository.save(user);
+    }
+
+    private boolean emailExist(String email) {
+        User user = userRepository.findByEmail(email);
+        if (user != null) {
+            return true;
+        }
+        return false;
     }
 
 

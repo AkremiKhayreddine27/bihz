@@ -7,6 +7,7 @@ import com.ihz.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +19,10 @@ import java.util.Set;
 @RestController
 @RequestMapping("/api/users")
 public class UsersApiController {
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
     @Autowired
     private UserRepository userRepository;
 
@@ -64,6 +69,7 @@ public class UsersApiController {
         if (bindingResult.hasErrors()) {
             return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(bindingResult.getAllErrors());
         } else {
+            user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
             User u = userRepository.save(user);
             return ResponseEntity.ok(u);
         }

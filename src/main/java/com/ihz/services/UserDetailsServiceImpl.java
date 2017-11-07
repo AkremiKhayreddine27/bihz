@@ -12,18 +12,18 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
 @Service
-public class UserDetailsServiceImpl implements UserDetailsService, IUserService {
+public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
+
 
 
     @Autowired
@@ -41,31 +41,4 @@ public class UserDetailsServiceImpl implements UserDetailsService, IUserService 
         return new org.springframework.security.core.userdetails.User(user.getName(), user.getPassword(), grantedAuthorities);
     }
 
-    @Transactional
-    @Override
-    public User registerNewUserAccount(Register accountDto)
-            throws EmailExistsException {
-
-        if (emailExist(accountDto.getEmail())) {
-            throw new EmailExistsException(
-                    "There is an account with that email adress: "
-                            + accountDto.getEmail());
-        }
-        User user = new User();
-        user.setName(accountDto.getName());
-        user.setPassword(accountDto.getPassword());
-        user.setEmail(accountDto.getEmail());
-        Set<Role> roles = new HashSet<Role>();
-        roles.add(roleRepository.findOne((long) 2));
-        user.setRoles(new HashSet<Role>(roles));
-        return userRepository.save(user);
-    }
-
-    private boolean emailExist(String email) {
-        User user = userRepository.findByEmail(email);
-        if (user != null) {
-            return true;
-        }
-        return false;
-    }
 }
