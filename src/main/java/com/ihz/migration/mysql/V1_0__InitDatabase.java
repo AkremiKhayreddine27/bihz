@@ -6,9 +6,14 @@
 package com.ihz.migration.mysql;
 
 import org.flywaydb.core.api.migration.spring.SpringJdbcMigration;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 public class V1_0__InitDatabase implements SpringJdbcMigration {
+
+
+
 
     @Override
     public void migrate(JdbcTemplate jdbcTemplate) throws Exception {
@@ -174,8 +179,9 @@ public class V1_0__InitDatabase implements SpringJdbcMigration {
 
 
     private String createDefaultAdmin() {
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         return "INSERT INTO users (id, name, password, email) VALUES"
-                + "(1, 'admin', '$2a$10$MvwUYRexceCXTm7CEeD56u8O0ikZ8FF20Z/2H0FhJsCKvHF83RV2W','admin@ihz.tn');";
+                + "(1, 'admin', '"+ bCryptPasswordEncoder.encode("admin")+"','admin@ihz.tn');";
     }
 
     private String createAdmin() {
