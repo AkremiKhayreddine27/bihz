@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 191);
+/******/ 	return __webpack_require__(__webpack_require__.s = 196);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -125,7 +125,7 @@ var Errors = function () {
 
 /***/ }),
 
-/***/ 142:
+/***/ 145:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -168,6 +168,26 @@ var statisticsdb = new Vue({
                 _this3.statistics = response.data;
                 _this3.addNewStatistic = false;
             });
+        },
+        getStatistic: function getStatistic(id) {
+            var _this4 = this;
+
+            axios.get('/repository/statistics/' + id).then(function (response) {
+                _this4.statisticsform.model = response.data;
+            });
+        },
+        editStatistic: function editStatistic(id) {
+            this.getStatistic(id);
+            $('#statistic-edit').modal('show');
+        },
+        saveStatistic: function saveStatistic() {
+            var _this5 = this;
+
+            axios.put(this.statisticsform.model._links.self.href, this.statisticsform.model).then(function (response) {
+                _this5.getStatistics();
+                _this5.statisticsform.reset();
+                $('#statistic-edit').modal('hide');
+            });
         }
     },
     mounted: function mounted() {
@@ -177,10 +197,10 @@ var statisticsdb = new Vue({
 
 /***/ }),
 
-/***/ 191:
+/***/ 196:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(142);
+module.exports = __webpack_require__(145);
 
 
 /***/ }),

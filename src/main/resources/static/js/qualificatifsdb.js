@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 186);
+/******/ 	return __webpack_require__(__webpack_require__.s = 191);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -125,7 +125,7 @@ var Errors = function () {
 
 /***/ }),
 
-/***/ 137:
+/***/ 140:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -168,6 +168,26 @@ var qualitatifsdb = new Vue({
                 _this3.qualitatifs = response.data;
                 _this3.addNewqualitatif = false;
             });
+        },
+        getQualitatif: function getQualitatif(id) {
+            var _this4 = this;
+
+            axios.get('/repository/qualitatifs/' + id).then(function (response) {
+                _this4.qualitatifsform.model = response.data;
+            });
+        },
+        editQualitatif: function editQualitatif(id) {
+            this.getQualitatif(id);
+            $('#qualitatifs-edit').modal('show');
+        },
+        saveQualitatif: function saveQualitatif() {
+            var _this5 = this;
+
+            axios.put(this.qualitatifsform.model._links.self.href, this.qualitatifsform.model).then(function (response) {
+                _this5.getqualitatifs();
+                _this5.qualitatifsform.reset();
+                $('#qualitatifs-edit').modal('hide');
+            });
         }
     },
     mounted: function mounted() {
@@ -177,10 +197,10 @@ var qualitatifsdb = new Vue({
 
 /***/ }),
 
-/***/ 186:
+/***/ 191:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(137);
+module.exports = __webpack_require__(140);
 
 
 /***/ }),

@@ -30,6 +30,24 @@ const statisticsdb = new Vue({
                 this.statistics = response.data;
                 this.addNewStatistic = false;
             });
+        },
+        getStatistic(id){
+            axios.get('/repository/statistics/'+ id).then(response => {
+                this.statisticsform.model = response.data;
+            });
+        },
+        editStatistic(id){
+            this.getStatistic(id);
+            $('#statistic-edit').modal('show');
+
+        },
+        saveStatistic(){
+            axios.put(this.statisticsform.model._links.self.href,this.statisticsform.model).then(response => {
+                this.getStatistics();
+                this.statisticsform.reset();
+                $('#statistic-edit').modal('hide');
+            });
+
         }
     },
     mounted(){

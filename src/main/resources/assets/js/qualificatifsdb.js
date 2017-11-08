@@ -30,6 +30,23 @@ const qualitatifsdb = new Vue({
                 this.qualitatifs = response.data;
                 this.addNewqualitatif = false;
             });
+        },
+        getQualitatif(id){
+            axios.get('/repository/qualitatifs/'+ id).then(response => {
+                this.qualitatifsform.model = response.data;
+            });
+        },
+        editQualitatif(id){
+            this.getQualitatif(id);
+            $('#qualitatifs-edit').modal('show');
+
+        },
+        saveQualitatif(){
+            axios.put(this.qualitatifsform.model._links.self.href,this.qualitatifsform.model).then(response => {
+                this.getqualitatifs();
+                this.qualitatifsform.reset();
+                $('#qualitatifs-edit').modal('hide');
+            });
         }
     },
     mounted(){

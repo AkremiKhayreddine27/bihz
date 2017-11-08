@@ -41,6 +41,8 @@
                             <td>
                                 <button v-on:click="deleteStatistic(statistic.id)" class="btn btn-danger"><i
                                         class="fa fa-trash"></i>Supprimer</button>
+                                <button class="btn btn-primary" v-on:click="editStatistic(statistic.id)"><i
+                                        class="fa fa-edit"></i>Edit</button>
                             </td>
                         </tr>
                         </tbody>
@@ -106,6 +108,65 @@
 
                 </div>
             </div>
+            <div id="statistic-edit" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <form>
+                                <div class="form-group"
+                                     v-bind:class="{'has-error': statisticsform.errors.get('nappe')}">
+                                    <label for="nappe" class="control-label">nappe</label>
+                                    <div>
+                                        <input id="nappe" v-model="statisticsform.model.nappe" type="text"
+                                               class="form-control"/>
+                                        <span v-if="statisticsform.errors.has('nappe')" class="help-block"><strong
+                                                v-text="statisticsform.errors.get('nappe')"></strong> </span>
+                                    </div>
+                                </div>
+                                <div class="form-group" v-bind:class="{'has-error': statisticsform.errors.get('date')}">
+                                    <label for="date" class="control-label">date</label>
+                                    <div>
+                                        <input id="date" v-model="statisticsform.model.date" type="text"
+                                               class="form-control"/>
+                                        <span v-if="statisticsform.errors.has('date')" class="help-block"><strong
+                                                v-text="statisticsform.errors.get('date')"></strong> </span>
+                                    </div>
+                                </div>
+                                <div class="form-group" v-bind:class="{'has-error': statisticsform.errors.get('type')}">
+                                    <label for="type" class="control-label">type</label>
+                                    <div>
+                                        <input id="type" v-model="statisticsform.model.type" type="text"
+                                               class="form-control"/>
+                                        <span v-if="statisticsform.errors.has('type')" class="help-block"><strong
+                                                v-text="statisticsform.errors.get('type')"></strong> </span>
+                                    </div>
+                                </div>
+                                <div class="form-group"
+                                     v-bind:class="{'has-error': statisticsform.errors.get('valeur')}">
+                                    <label for="valeur" class="control-label">valeur</label>
+                                    <div>
+                                        <input id="valeur" v-model="statisticsform.model.valeur" type="text"
+                                               class="form-control"/>
+                                        <span v-if="statisticsform.errors.has('valeur')" class="help-block"><strong
+                                                v-text="statisticsform.errors.get('valeur')"></strong> </span>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button id="closeUserModal" type="button" class="btn btn-default"
+                                    data-dismiss="modal">
+                                Annuler
+                            </button>
+                            <button class="btn btn-primary"
+                                    v-on:click="saveStatistic">Modifier
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
         </div>
         <div class="row" id="qualitatifsdb">
             <div class="col-sm-12">
@@ -137,6 +198,8 @@
                             <td>
                                 <button v-on:click="deleteQualitatif(qualitatif.id)" class="btn btn-danger"><i
                                         class="fa fa-trash"></i>Supprimer</button>
+                                <button class="btn btn-primary" v-on:click="editQualitatif(qualitatif.id)"><i
+                                        class="fa fa-edit"></i>Edit</button>
                             </td>
                         </tr>
                         </tbody>
@@ -198,6 +261,67 @@
                             </button>
                             <button class="btn btn-primary"
                                     v-on:click="saveNewQualitatif">Ajouter
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div id="qualitatifs-edit" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <form>
+                                <div class="form-group"
+                                     v-bind:class="{'has-error': qualitatifsform.errors.get('nappe')}">
+                                    <label for="nappe" class="control-label">nappe</label>
+                                    <div>
+                                        <input id="nappe" v-model="qualitatifsform.model.nappe" type="text"
+                                               class="form-control"/>
+                                        <span v-if="qualitatifsform.errors.has('nappe')" class="help-block"><strong
+                                                v-text="qualitatifsform.errors.get('nappe')"></strong> </span>
+                                    </div>
+                                </div>
+                                <div class="form-group"
+                                     v-bind:class="{'has-error': qualitatifsform.errors.get('date')}">
+                                    <label for="date" class="control-label">date</label>
+                                    <div>
+                                        <input id="date" v-model="qualitatifsform.model.date" type="text"
+                                               class="form-control"/>
+                                        <span v-if="qualitatifsform.errors.has('date')" class="help-block"><strong
+                                                v-text="qualitatifsform.errors.get('date')"></strong> </span>
+                                    </div>
+                                </div>
+                                <div class="form-group"
+                                     v-bind:class="{'has-error': qualitatifsform.errors.get('type')}">
+                                    <label for="type" class="control-label">type</label>
+                                    <div>
+                                        <input id="type" v-model="qualitatifsform.model.type" type="text"
+                                               class="form-control"/>
+                                        <span v-if="qualitatifsform.errors.has('type')" class="help-block"><strong
+                                                v-text="qualitatifsform.errors.get('type')"></strong> </span>
+                                    </div>
+                                </div>
+                                <div class="form-group"
+                                     v-bind:class="{'has-error': qualitatifsform.errors.get('valeur')}">
+                                    <label for="valeur" class="control-label">valeur</label>
+                                    <div>
+                                        <input id="valeur" v-model="qualitatifsform.model.valeur" type="text"
+                                               class="form-control"/>
+                                        <span v-if="qualitatifsform.errors.has('valeur')" class="help-block"><strong
+                                                v-text="qualitatifsform.errors.get('valeur')"></strong> </span>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button id="closeUserModal" type="button" class="btn btn-default"
+                                    data-dismiss="modal">
+                                Annuler
+                            </button>
+                            <button class="btn btn-primary"
+                                    v-on:click="saveQualitatif">Modifier
                             </button>
                         </div>
                     </div>
